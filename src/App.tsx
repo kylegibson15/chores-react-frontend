@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useLayoutEffect } from 'react';
+import { Button, Grid } from '@material-ui/core';
+
+import { AddChoreForm } from './components';
+
+import { dataRequest, request } from './utils';
 
 function App() {
+  async function requestAll() {
+    const response = await dataRequest('http://localhost:3001/api/child/chores/Romeo', request.get)
+    console.log({ response });
+    const data = await response.json();
+    console.log({ data });
+  }
+
+  useLayoutEffect(() => {
+    requestAll();
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Grid container>
+      <Grid item>
+        <Button color='primary' onClick={requestAll} variant='contained'>
+          Re-request All Child Chores
+        </Button>
+      </Grid>
+
+      <AddChoreForm />
+    </Grid>
+  )
 }
 
 export default App;
