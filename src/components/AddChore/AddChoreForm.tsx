@@ -10,8 +10,7 @@ import { dataRequest, request } from '../../utils';
 
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    margin: 15,
-    width: '70vw'
+    margin: 15
   },
   submit: {
     marginTop: 30
